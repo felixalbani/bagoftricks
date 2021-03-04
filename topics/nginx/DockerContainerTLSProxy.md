@@ -34,7 +34,7 @@ ssl_certificate_key  /path/to/certficate/star_proxy_example_com.hey;
 
 2. Extracting hostname and port using regex expressions
 
-The regular expressions [1] used by nginx are compatible with those used by the Perl programming language (PCRE)
+The [regular expressions used by nginx](http://nginx.org/en/docs/http/server_names.html#regex_names) are compatible with those used by the Perl programming language (PCRE)
 
 Following code snippet captures both $containername and $containerport:
 ```
@@ -56,7 +56,7 @@ location / {
 
 4. Websocket support
 
-Websocket support was easy. As described in nginx documentation [2] adding the `Upgrade` and `Connection` enabled websocket support.
+Websocket support was easy. As described in [nginx documentation](http://nginx.org/en/docs/http/websocket.html) adding the `Upgrade` and `Connection` enabled websocket support.
 
 ```
 proxy_set_header Upgrade $http_upgrade;
@@ -65,7 +65,7 @@ proxy_set_header Connection $connection_upgrade;
 
 ## Solution
 
-Following is the full code snippet:
+This configuration helps enable access to the required internal docker containers via secure TLS with support for websockets:
 
 ```
 server {
@@ -75,7 +75,6 @@ server {
        ssl_certificate_key  /path/to/certficate/star_proxy_example_com.hey;
 
        server_name ~^(?<containername>.+)-(?<containerport>\d+)\.proxy\.example\.com$;
-
 
        location / {
             resolver 127.0.0.1; # point to correct DNS server
@@ -93,11 +92,9 @@ server {
    }
 ```
 
-With similar approach you could also map external url to internal ip address. This would be possible only if the ip address is part of the external url and can be extracted using regex expressions. 
-
-This configuration helps enable access to the required internal docker containers via secure TLS with support for websockets.
+With similar approach is also possible to map external url to internal ip address. This would be possible if the ip address is part of the external url. For example: ip-192-168-1-1.proxy.example.com - and can be extracted using regex expressions. 
 
 References:
 
-[1] - Server name regular expressions - http://nginx.org/en/docs/http/server_names.html#regex_names
-[2] - Websocket proxying - http://nginx.org/en/docs/http/websocket.html
+- [1] Server name regular expressions - http://nginx.org/en/docs/http/server_names.html#regex_names
+- [2] Websocket proxying - http://nginx.org/en/docs/http/websocket.html
