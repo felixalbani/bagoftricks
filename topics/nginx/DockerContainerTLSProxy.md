@@ -62,7 +62,7 @@ Use both $containername and $containerport along with resolver to forward the re
 ```
 location / {
             resolver x.x.x.x;
-            proxy_pass http://${hostnamelab}.example.com:${portnamelab};
+            proxy_pass http://${containername}.example.com:${containerport};
 ```
 
 `resolver` must point to the IP address of the DNS server that can resolve the proxy_pass domain name to IP address. Required since we are using capture variables with `proxy_pass`
@@ -93,7 +93,7 @@ server {
 
        location / {
             resolver 127.0.0.1; # point to correct DNS server
-            proxy_pass http://${hostnamelab}.example.com:${portnamelab};
+            proxy_pass http://${containername}.example.com:${containerport};
             proxy_set_header  Host $host;
             proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header  X-Forwarded-Proto $scheme;
