@@ -14,7 +14,22 @@ Each docker containerized application must be reachable __internally__ using a u
 
 Finally, for TLS termination configuration both public and private certificate crt and key are needed. Supporting wildcard names under any common name that will resolve to the `nginx` proxy. For example: *.proxy.example.com or *.nginx.example.com
 
-## How to
+## How this works?
+
+Mapping external requests comming to nginx to internal ones as follows:
+
+- Request to: container1-8080.proxy.example.com
+- Should map to: container1.example.com:8080
+
+another example:
+
+- Request to: redis2-6379.proxy.example.com
+- Should map to: redis2.example.com:6379
+
+
+Is important to highlight that the `container host` and `container port` are part of the initial request `FQDN`. In the above examples is possible to capture via regex expressions the conatiner names `container1`/`redis2` and ports `8080`/`6379`, and then use this information to construct the mapped internal FQDN.
+
+## Implementation 
 
 The idea behind this implementation is to extract the hostname and port from the server name url using regex expressions and forward the request using `proxy_pass`.
 
