@@ -104,7 +104,7 @@ yarn dev
 - _nuxt.config.js_: Used to modify the default nuxt configuration
 - _.nuxt_: The .nuxt directory should not be committed to your version control system and should be ignored through your .gitignore as it will be generated automatically when executing nuxt dev or nuxt build.
 
-## Single Page Application `SPA` vs Server Side Rendering`SSR`
+## Single Page Application `SPA` vs Server Side Rendering `SSR`
 
 ### Universal Deployment
 
@@ -273,7 +273,7 @@ Nuxt uses [nuxtjs/axios](https://axios.nuxtjs.org/) for varios reasons:
 
 ### `asyncData(context)` method
 
-Called each time before the page component is loaded. Nuxt will wait until API call is finished to render the component. The object retured will be **merged** with component data. We can use `async/await` or `Promises`.
+Called each time before the page component is loaded. Nuxt will wait until API call is finished to render the component. The object returned will be **merged** with component data. We can use `async/await` or `Promises`.
 
 ### `fetch` hook
 
